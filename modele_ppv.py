@@ -114,23 +114,23 @@ for k in valeurs_k:
 # -----------------------------------------------------------------------------
 # ÉTAPE 2e : AFFICHAGE DU TABLEAU DE RÉSULTATS
 # -----------------------------------------------------------------------------
+# Trouver le meilleur K (celui avec le TCC moyen le plus élevé)
+meilleur_index_aus = np.argmax(resultats_australian_moyennes)
+meilleur_k_aus = valeurs_k[meilleur_index_aus]
+meilleur_tcc_aus = resultats_australian_moyennes[meilleur_index_aus]
+
 print("RÉSULTATS - Australian Credit Approval")
-print("-" * 45)
-print(f"{'K (voisins)':<15} {'TCC moyen':<15} {'Écart-type':<15}")
-print("-" * 45)
+print("-" * 40)
+print(f"{'K':<8} {'TCC moyen':<25}")
+print("-" * 40)
 
 for i, k in enumerate(valeurs_k):
-    tcc = resultats_australian_moyennes[i]
-    ecart = resultats_australian_ecarts[i]
-    print(f"{k:<15} {tcc:.4f}          {ecart:.4f}")
+    tcc = resultats_australian_moyennes[i] * 100       # Conversion en %
+    ecart = resultats_australian_ecarts[i] * 100       # Conversion en %
+    print(f"{k:<8} {tcc:.2f}% ± {ecart:.2f}%")
 
-print("-" * 45)
-
-# Trouver le meilleur K
-meilleur_index = np.argmax(resultats_australian_moyennes)
-meilleur_k = valeurs_k[meilleur_index]
-meilleur_tcc = resultats_australian_moyennes[meilleur_index]
-print(f"\nMeilleur K : {meilleur_k} avec un TCC de {meilleur_tcc:.4f}")
+print("-" * 40)
+print(f"Meilleur K : {meilleur_k_aus} (TCC = {meilleur_tcc_aus * 100:.2f}%)")
 
 # -----------------------------------------------------------------------------
 # ÉTAPE 2f : AFFICHAGE DU GRAPHIQUE
@@ -142,13 +142,22 @@ plt.figure(figsize=(10, 6))
 # Tracé de la courbe avec barres d'erreur (écart-type)
 plt.errorbar(valeurs_k, resultats_australian_moyennes,
              yerr=resultats_australian_ecarts,
-             marker='o', capsize=5, capthick=2, linewidth=2, markersize=8)
+             marker='o', capsize=5, capthick=2, linewidth=2, markersize=8,
+             label='TCC moyen', color='steelblue')
+
+# Ligne verticale rouge pour indiquer le meilleur K
+plt.axvline(x=meilleur_k_aus, color='red', linestyle='--', alpha=0.7,
+            label=f'Meilleur K = {meilleur_k_aus}')
+
+# Point rouge sur le meilleur K pour le mettre en évidence
+plt.scatter([meilleur_k_aus], [meilleur_tcc_aus], color='red', s=150, zorder=5)
 
 plt.xlabel('K (nombre de voisins)', fontsize=12)
 plt.ylabel('TCC moyen (accuracy)', fontsize=12)
 plt.title('PPV sur Australian Credit Approval\nTaux de classification correct en fonction de K', fontsize=14)
 plt.xticks(valeurs_k)
 plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
 plt.tight_layout()
 
 # Sauvegarde du graphique
@@ -236,23 +245,23 @@ for k in valeurs_k:
 # -----------------------------------------------------------------------------
 # ÉTAPE 3e : AFFICHAGE DU TABLEAU DE RÉSULTATS
 # -----------------------------------------------------------------------------
+# Trouver le meilleur K
+meilleur_index_wine = np.argmax(resultats_wine_moyennes)
+meilleur_k_wine = valeurs_k[meilleur_index_wine]
+meilleur_tcc_wine = resultats_wine_moyennes[meilleur_index_wine]
+
 print("RÉSULTATS - Wine Quality Red")
-print("-" * 45)
-print(f"{'K (voisins)':<15} {'TCC moyen':<15} {'Écart-type':<15}")
-print("-" * 45)
+print("-" * 40)
+print(f"{'K':<8} {'TCC moyen':<25}")
+print("-" * 40)
 
 for i, k in enumerate(valeurs_k):
-    tcc = resultats_wine_moyennes[i]
-    ecart = resultats_wine_ecarts[i]
-    print(f"{k:<15} {tcc:.4f}          {ecart:.4f}")
+    tcc = resultats_wine_moyennes[i] * 100             # Conversion en %
+    ecart = resultats_wine_ecarts[i] * 100             # Conversion en %
+    print(f"{k:<8} {tcc:.2f}% ± {ecart:.2f}%")
 
-print("-" * 45)
-
-# Trouver le meilleur K
-meilleur_index = np.argmax(resultats_wine_moyennes)
-meilleur_k = valeurs_k[meilleur_index]
-meilleur_tcc = resultats_wine_moyennes[meilleur_index]
-print(f"\nMeilleur K : {meilleur_k} avec un TCC de {meilleur_tcc:.4f}")
+print("-" * 40)
+print(f"Meilleur K : {meilleur_k_wine} (TCC = {meilleur_tcc_wine * 100:.2f}%)")
 
 # -----------------------------------------------------------------------------
 # ÉTAPE 3f : AFFICHAGE DU GRAPHIQUE
@@ -265,13 +274,21 @@ plt.figure(figsize=(10, 6))
 plt.errorbar(valeurs_k, resultats_wine_moyennes,
              yerr=resultats_wine_ecarts,
              marker='o', capsize=5, capthick=2, linewidth=2, markersize=8,
-             color='green')
+             label='TCC moyen', color='green')
+
+# Ligne verticale rouge pour indiquer le meilleur K
+plt.axvline(x=meilleur_k_wine, color='red', linestyle='--', alpha=0.7,
+            label=f'Meilleur K = {meilleur_k_wine}')
+
+# Point rouge sur le meilleur K pour le mettre en évidence
+plt.scatter([meilleur_k_wine], [meilleur_tcc_wine], color='red', s=150, zorder=5)
 
 plt.xlabel('K (nombre de voisins)', fontsize=12)
 plt.ylabel('TCC moyen (accuracy)', fontsize=12)
 plt.title('PPV sur Wine Quality Red\nTaux de classification correct en fonction de K', fontsize=14)
 plt.xticks(valeurs_k)
 plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
 plt.tight_layout()
 
 # Sauvegarde du graphique
@@ -289,4 +306,3 @@ print("=" * 70)
 print("\nRécapitulatif des fichiers générés :")
 print("  - resultats/ppv_australian.png")
 print("  - resultats/ppv_wine.png")
-print("\nCes graphiques peuvent être utilisés dans le rapport.")
