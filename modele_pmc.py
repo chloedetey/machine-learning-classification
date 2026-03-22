@@ -20,8 +20,6 @@ from sklearn.preprocessing import normalize             # Pour normaliser les do
 from sklearn.neural_network import MLPClassifier        # Le modèle PMC (MLP)
 from sklearn.model_selection import RepeatedKFold       # Pour la validation croisée répétée
 from sklearn.model_selection import cross_val_score     # Pour évaluer le modèle
-import matplotlib
-matplotlib.use('Agg')                                   # Backend non-interactif (pas de fenêtre)
 import matplotlib.pyplot as plt                         # Pour afficher les graphiques
 import warnings                                         # Pour ignorer les avertissements de convergence
 warnings.filterwarnings('ignore')                       # Le MLP peut parfois ne pas converger parfaitement
@@ -327,4 +325,3 @@ print("=" * 70)
 print("\nRécapitulatif des fichiers générés :")
 print("  - resultats/pmc_australian.png")
 print("  - resultats/pmc_wine.png")
-print("\nCes graphiques peuvent être utilisés dans le rapport.")
