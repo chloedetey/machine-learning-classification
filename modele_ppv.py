@@ -20,6 +20,8 @@ from sklearn.preprocessing import normalize             # Pour normaliser les do
 from sklearn.neighbors import KNeighborsClassifier      # Le modèle PPV (KNN)
 from sklearn.model_selection import RepeatedKFold       # Pour la validation croisée répétée
 from sklearn.model_selection import cross_val_score     # Pour évaluer le modèle
+import matplotlib
+matplotlib.use('Agg')                                   # Backend non-interactif (pas de fenêtre)
 import matplotlib.pyplot as plt                         # Pour afficher les graphiques
 
 # -----------------------------------------------------------------------------
