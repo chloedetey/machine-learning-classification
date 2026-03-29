@@ -99,11 +99,13 @@ resultats_australian_ecarts = []     # Écart-type pour chaque config
 for n_neurones in valeurs_neurones:
     # Création du modèle PMC avec une couche cachée de n_neurones
     # - hidden_layer_sizes=(n_neurones,) : une seule couche cachée avec n_neurones
+    # - activation='logistic' : fonction sigmoïde (comme vu en cours sur les perceptrons)
     # - early_stopping=True : arrête l'entraînement si pas d'amélioration (évite sur-apprentissage)
     # - max_iter=1000 : nombre maximum d'itérations pour converger
     # - random_state=42 : pour la reproductibilité
     modele_pmc = MLPClassifier(
         hidden_layer_sizes=(n_neurones,),
+        activation='logistic',
         early_stopping=True,
         max_iter=1000,
         random_state=42
@@ -241,6 +243,7 @@ for n_neurones in valeurs_neurones:
     # Création du modèle PMC
     modele_pmc = MLPClassifier(
         hidden_layer_sizes=(n_neurones,),
+        activation='logistic',
         early_stopping=True,
         max_iter=1000,
         random_state=42
