@@ -1,6 +1,7 @@
 .claude/
 CHANGELOG.md
 rapport/rapport.md
+rapport/rapport.docx
 
 __pycache__/
 *.py[cod]
